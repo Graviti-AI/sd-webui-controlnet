@@ -292,8 +292,8 @@ class Script(scripts.Script):
                         preview_close_button_js = f"document.querySelector(\'#{preview_check_elem_id} input[type=\\\'checkbox\\\']\').click();"
                         gr.HTML(value=f'''<a style="{preview_close_button_style}" title="Close Preview" onclick="{preview_close_button_js}">Close</a>''', visible=True)
 
-            with gr.Tab(label='Batch') as batch_tab:
-                batch_image_dir = gr.Textbox(label='Input Directory', placeholder='Leave empty to use img2img batch controlnet input directory', elem_id=f'{elem_id_tabname}_{tabname}_batch_image_dir')
+            # with gr.Tab(label='Batch', visible=False) as batch_tab:
+            #     batch_image_dir = gr.Textbox(label='Input Directory', placeholder='Leave empty to use img2img batch controlnet input directory', elem_id=f'{elem_id_tabname}_{tabname}_batch_image_dir')
 
         with gr.Accordion(label='Open New Canvas', visible=False) as create_canvas:
             canvas_width = gr.Slider(label="New Canvas Width", minimum=256, maximum=1024, value=512, step=64)
@@ -638,7 +638,7 @@ class Script(scripts.Script):
 
         for input_tab in (
             (upload_tab, batch_hijack.InputMode.SIMPLE),
-            (batch_tab, batch_hijack.InputMode.BATCH)
+            # (batch_tab, batch_hijack.InputMode.BATCH)
         ):
             input_tab[0].select(fn=ui_controlnet_unit_for_input_mode, inputs=[gr.State(input_tab[1])] + list(unit_args), outputs=[input_mode, unit])
 
@@ -665,11 +665,11 @@ class Script(scripts.Script):
                     queue=False,
                 )
 
-        if img2img_batch_input_dir is None:
-            # we are too soon, subscribe later when available
-            img2img_batch_input_dir_callbacks.append(subscribe_for_batch_dir)
-        else:
-            subscribe_for_batch_dir()
+        # if img2img_batch_input_dir is None:
+        #     # we are too soon, subscribe later when available
+        #     img2img_batch_input_dir_callbacks.append(subscribe_for_batch_dir)
+        # else:
+        #     subscribe_for_batch_dir()
 
         # keep output_dir in sync with global batch output textbox
         global img2img_batch_output_dir, img2img_batch_output_dir_callbacks
@@ -682,11 +682,11 @@ class Script(scripts.Script):
                 queue=False,
             )
 
-        if img2img_batch_input_dir is None:
-            # we are too soon, subscribe later when available
-            img2img_batch_output_dir_callbacks.append(subscribe_for_output_dir)
-        else:
-            subscribe_for_output_dir()
+        # if img2img_batch_input_dir is None:
+        #     # we are too soon, subscribe later when available
+        #     img2img_batch_output_dir_callbacks.append(subscribe_for_output_dir)
+        # else:
+        #     subscribe_for_output_dir()
 
         if is_img2img:
             img2img_submit_button.click(fn=UiControlNetUnit, inputs=list(unit_args), outputs=unit, queue=False)
