@@ -587,9 +587,9 @@ class Script(scripts.Script):
         else:
             send_dimen_button.click(fn=send_dimensions, inputs=[input_image], outputs=[self.txt2img_w_slider, self.txt2img_h_slider])
 
-        control_mode = gr.Radio(choices=[e.value for e in external_code.ControlMode], value=default_unit.control_mode.value, label="Control Mode (Guess Mode)")
+        control_mode = gr.Radio(choices=external_code.ControlMode.values, value=default_unit.control_mode, label="Control Mode (Guess Mode)")
 
-        resize_mode = gr.Radio(choices=[e.value for e in external_code.ResizeMode], value=default_unit.resize_mode.value, label="Resize Mode")
+        resize_mode = gr.Radio(choices=external_code.ResizeMode.values, value=default_unit.resize_mode, label="Resize Mode")
 
         loopback = gr.Checkbox(label='[Loopback] Automatically send generated images to this ControlNet unit', value=default_unit.loopback)
 

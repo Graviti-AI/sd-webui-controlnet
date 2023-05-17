@@ -12,7 +12,7 @@ def get_api_version() -> int:
     return 1
 
 
-class ControlMode(Enum):
+class ControlMode:
     """
     The improved guess mode.
     """
@@ -21,8 +21,10 @@ class ControlMode(Enum):
     PROMPT = "My prompt is more important"
     CONTROL = "ControlNet is more important"
 
+    values = [BALANCED, PROMPT, CONTROL]
 
-class ResizeMode(Enum):
+
+class ResizeMode:
     """
     Resize modes for ControlNet input images.
     """
@@ -30,6 +32,8 @@ class ResizeMode(Enum):
     RESIZE = "Just Resize"
     INNER_FIT = "Crop and Resize"
     OUTER_FIT = "Resize and Fill"
+
+    values = [RESIZE, INNER_FIT, OUTER_FIT]
 
 
 resize_mode_aliases = {
